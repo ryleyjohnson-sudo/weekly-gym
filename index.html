@@ -232,10 +232,66 @@
 
   .log-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 8px;
-    margin-top: 10px;
+    flex: 1;
+    min-width: 0;
   }
+  .set-rows {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .set-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+  }
+  .set-label {
+    flex-shrink: 0;
+    width: 44px;
+    padding-bottom: 12px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .btn-set {
+    appearance: none;
+    -webkit-appearance: none;
+    flex-shrink: 0;
+    width: 40px;
+    min-height: 44px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--card2);
+    color: var(--text);
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+  }
+  .btn-set:active { transform: scale(0.96); }
+  .btn-add-set {
+    appearance: none;
+    -webkit-appearance: none;
+    align-self: flex-start;
+    margin-top: 2px;
+    border: 1px dashed var(--border);
+    background: transparent;
+    color: var(--accent);
+    border-radius: 10px;
+    min-height: 36px;
+    padding: 6px 12px;
+    font-size: 0.82rem;
+    font-weight: 650;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .btn-add-set:active { transform: scale(0.98); }
   .field label {
     display: block;
     font-size: 0.7rem;
@@ -484,7 +540,9 @@
   .static-workout .log-grid input,
   .static-workout .field input,
   .static-workout .field select,
-  .static-workout .field textarea {
+  .static-workout .field textarea,
+  .static-workout .btn-add-set,
+  .static-workout .btn-set {
     pointer-events: none;
   }
 
@@ -523,7 +581,7 @@
   <details class="collapsible">
     <summary>How to use · progression · steps</summary>
     <div class="body">
-      <p><strong style="color:var(--text)">How to use</strong> — Warm up, then work the straight lift, then supersets. Little rest between pair partners; ~60–90s after the pair. Log weight / reps / sets as you go. Finish with cardio. Notes optional.</p>
+      <p><strong style="color:var(--text)">How to use</strong> — Warm up, then work the straight lift, then supersets. Little rest between pair partners; ~60–90s after the pair. Log weight and reps for each set as you go. Finish with cardio. Notes optional.</p>
       <p><strong style="color:var(--text)">Progression</strong> — If all target reps hit with solid form, next session add load (~5 lb barbell / 2.5–5 lb DBs) <em>or</em> +1–2 reps.</p>
       <p><strong style="color:var(--text)">Steps</strong> — Target 8,000 min / ~9,000 avg (Whoop). Renpho optional.</p>
       <p style="margin-bottom:0">Prefer dumbbells for bench &amp; OHP. Leave 2 in the tank on heavy pulls. Brief calf + hamstring mobility every session.</p>
@@ -583,10 +641,29 @@
               <div class="ex-rest">Rest 90–120s between sets</div>
             </div>
           </div>
-          <div class="log-grid">
-            <div class="field"><label>Weight</label><input value="135" readonly></div>
-            <div class="field"><label>Reps</label><input value="8" readonly></div>
-            <div class="field"><label>Sets done</label><input value="3" readonly></div>
+          <div class="set-rows">
+            <div class="set-row">
+              <div class="set-label">Set 1</div>
+              <div class="log-grid">
+                <div class="field"><label>Weight</label><input value="135" readonly></div>
+                <div class="field"><label>Reps</label><input value="8" readonly></div>
+              </div>
+            </div>
+            <div class="set-row">
+              <div class="set-label">Set 2</div>
+              <div class="log-grid">
+                <div class="field"><label>Weight</label><input value="135" readonly></div>
+                <div class="field"><label>Reps</label><input value="8" readonly></div>
+              </div>
+            </div>
+            <div class="set-row">
+              <div class="set-label">Set 3</div>
+              <div class="log-grid">
+                <div class="field"><label>Weight</label><input value="135" readonly></div>
+                <div class="field"><label>Reps</label><input value="8" readonly></div>
+              </div>
+            </div>
+            <button type="button" class="btn-add-set" disabled>+ set</button>
           </div>
         </div>
       </div>
@@ -602,11 +679,30 @@
               <div class="ex-name"><span class="ex-label">A1</span>DB bench</div>
               <div class="ex-prescribed">45s × 10</div>
             </div></div>
-            <div class="log-grid">
-              <div class="field"><label>Weight</label><input value="45" readonly></div>
-              <div class="field"><label>Reps</label><input value="10" readonly></div>
-              <div class="field"><label>Sets done</label><input value="3" readonly></div>
+            <div class="set-rows">
+            <div class="set-row">
+              <div class="set-label">Set 1</div>
+              <div class="log-grid">
+                <div class="field"><label>Weight</label><input value="45" readonly></div>
+                <div class="field"><label>Reps</label><input value="10" readonly></div>
+              </div>
             </div>
+            <div class="set-row">
+              <div class="set-label">Set 2</div>
+              <div class="log-grid">
+                <div class="field"><label>Weight</label><input value="45" readonly></div>
+                <div class="field"><label>Reps</label><input value="10" readonly></div>
+              </div>
+            </div>
+            <div class="set-row">
+              <div class="set-label">Set 3</div>
+              <div class="log-grid">
+                <div class="field"><label>Weight</label><input value="45" readonly></div>
+                <div class="field"><label>Reps</label><input value="10" readonly></div>
+              </div>
+            </div>
+            <button type="button" class="btn-add-set" disabled>+ set</button>
+          </div>
           </div>
           <div class="pair-arrow">↓ then immediately ↓</div>
           <div class="exercise">
@@ -614,11 +710,30 @@
               <div class="ex-name"><span class="ex-label">A2</span>Banded pull-ups</div>
               <div class="ex-prescribed">quality reps</div>
             </div></div>
-            <div class="log-grid">
-              <div class="field"><label>Weight</label><input value="" readonly placeholder="lb"></div>
-              <div class="field"><label>Reps</label><input value="" readonly placeholder="reps"></div>
-              <div class="field"><label>Sets done</label><input value="3" readonly></div>
+            <div class="set-rows">
+            <div class="set-row">
+              <div class="set-label">Set 1</div>
+              <div class="log-grid">
+                <div class="field"><label>Weight</label><input value="" readonly placeholder="lb"></div>
+                <div class="field"><label>Reps</label><input value="" readonly placeholder="reps"></div>
+              </div>
             </div>
+            <div class="set-row">
+              <div class="set-label">Set 2</div>
+              <div class="log-grid">
+                <div class="field"><label>Weight</label><input value="" readonly placeholder="lb"></div>
+                <div class="field"><label>Reps</label><input value="" readonly placeholder="reps"></div>
+              </div>
+            </div>
+            <div class="set-row">
+              <div class="set-label">Set 3</div>
+              <div class="log-grid">
+                <div class="field"><label>Weight</label><input value="" readonly placeholder="lb"></div>
+                <div class="field"><label>Reps</label><input value="" readonly placeholder="reps"></div>
+              </div>
+            </div>
+            <button type="button" class="btn-add-set" disabled>+ set</button>
+          </div>
           </div>
         </div>
       </div>
@@ -634,11 +749,30 @@
               <div class="ex-name"><span class="ex-label">B1</span>Seated DB press</div>
               <div class="ex-prescribed">35s × 10</div>
             </div></div>
-            <div class="log-grid">
-              <div class="field"><label>Weight</label><input value="35" readonly></div>
-              <div class="field"><label>Reps</label><input value="10" readonly></div>
-              <div class="field"><label>Sets done</label><input value="3" readonly></div>
+            <div class="set-rows">
+            <div class="set-row">
+              <div class="set-label">Set 1</div>
+              <div class="log-grid">
+                <div class="field"><label>Weight</label><input value="35" readonly></div>
+                <div class="field"><label>Reps</label><input value="10" readonly></div>
+              </div>
             </div>
+            <div class="set-row">
+              <div class="set-label">Set 2</div>
+              <div class="log-grid">
+                <div class="field"><label>Weight</label><input value="35" readonly></div>
+                <div class="field"><label>Reps</label><input value="10" readonly></div>
+              </div>
+            </div>
+            <div class="set-row">
+              <div class="set-label">Set 3</div>
+              <div class="log-grid">
+                <div class="field"><label>Weight</label><input value="35" readonly></div>
+                <div class="field"><label>Reps</label><input value="10" readonly></div>
+              </div>
+            </div>
+            <button type="button" class="btn-add-set" disabled>+ set</button>
+          </div>
           </div>
           <div class="pair-arrow">↓ then immediately ↓</div>
           <div class="exercise">
@@ -646,11 +780,30 @@
               <div class="ex-name"><span class="ex-label">B2</span>DB curls</div>
               <div class="ex-prescribed">10–12</div>
             </div></div>
-            <div class="log-grid">
-              <div class="field"><label>Weight</label><input value="" readonly placeholder="lb"></div>
-              <div class="field"><label>Reps</label><input value="10-12" readonly></div>
-              <div class="field"><label>Sets done</label><input value="3" readonly></div>
+            <div class="set-rows">
+            <div class="set-row">
+              <div class="set-label">Set 1</div>
+              <div class="log-grid">
+                <div class="field"><label>Weight</label><input value="" readonly placeholder="lb"></div>
+                <div class="field"><label>Reps</label><input value="10-12" readonly></div>
+              </div>
             </div>
+            <div class="set-row">
+              <div class="set-label">Set 2</div>
+              <div class="log-grid">
+                <div class="field"><label>Weight</label><input value="" readonly placeholder="lb"></div>
+                <div class="field"><label>Reps</label><input value="10-12" readonly></div>
+              </div>
+            </div>
+            <div class="set-row">
+              <div class="set-label">Set 3</div>
+              <div class="log-grid">
+                <div class="field"><label>Weight</label><input value="" readonly placeholder="lb"></div>
+                <div class="field"><label>Reps</label><input value="10-12" readonly></div>
+              </div>
+            </div>
+            <button type="button" class="btn-add-set" disabled>+ set</button>
+          </div>
           </div>
         </div>
       </div>
@@ -666,11 +819,23 @@
               <div class="ex-name"><span class="ex-label">C1</span>Light RDL / good morning</div>
               <div class="ex-prescribed">8–10</div>
             </div></div>
-            <div class="log-grid">
-              <div class="field"><label>Weight</label><input value="" readonly placeholder="lb"></div>
-              <div class="field"><label>Reps</label><input value="8-10" readonly></div>
-              <div class="field"><label>Sets done</label><input value="2" readonly></div>
+            <div class="set-rows">
+            <div class="set-row">
+              <div class="set-label">Set 1</div>
+              <div class="log-grid">
+                <div class="field"><label>Weight</label><input value="" readonly placeholder="lb"></div>
+                <div class="field"><label>Reps</label><input value="8-10" readonly></div>
+              </div>
             </div>
+            <div class="set-row">
+              <div class="set-label">Set 2</div>
+              <div class="log-grid">
+                <div class="field"><label>Weight</label><input value="" readonly placeholder="lb"></div>
+                <div class="field"><label>Reps</label><input value="8-10" readonly></div>
+              </div>
+            </div>
+            <button type="button" class="btn-add-set" disabled>+ set</button>
+          </div>
           </div>
           <div class="pair-arrow">↓ then immediately ↓</div>
           <div class="exercise">
@@ -678,11 +843,23 @@
               <div class="ex-name"><span class="ex-label">C2</span>Abs</div>
               <div class="ex-prescribed">10–15</div>
             </div></div>
-            <div class="log-grid">
-              <div class="field"><label>Weight</label><input value="" readonly placeholder="lb"></div>
-              <div class="field"><label>Reps</label><input value="10-15" readonly></div>
-              <div class="field"><label>Sets done</label><input value="2" readonly></div>
+            <div class="set-rows">
+            <div class="set-row">
+              <div class="set-label">Set 1</div>
+              <div class="log-grid">
+                <div class="field"><label>Weight</label><input value="" readonly placeholder="lb"></div>
+                <div class="field"><label>Reps</label><input value="10-15" readonly></div>
+              </div>
             </div>
+            <div class="set-row">
+              <div class="set-label">Set 2</div>
+              <div class="log-grid">
+                <div class="field"><label>Weight</label><input value="" readonly placeholder="lb"></div>
+                <div class="field"><label>Reps</label><input value="10-15" readonly></div>
+              </div>
+            </div>
+            <button type="button" class="btn-add-set" disabled>+ set</button>
+          </div>
           </div>
         </div>
       </div>
@@ -910,23 +1087,80 @@
     }
   }
 
-  function defaultLog(session) {
-    const exercises = {};
-    if (session.straight) {
-      exercises[session.straight.id] = {
-        weight: session.straight.defaultWeight,
-        reps: session.straight.defaultReps,
-        sets: session.straight.defaultSets
-      };
-    }
+  function sessionExercises(session) {
+    const list = [];
+    if (session.straight) list.push(session.straight);
     session.supersets.forEach(function (ss) {
-      [ss.a, ss.b].forEach(function (ex) {
-        exercises[ex.id] = {
-          weight: ex.defaultWeight,
-          reps: ex.defaultReps,
-          sets: ex.defaultSets
+      list.push(ss.a, ss.b);
+    });
+    return list;
+  }
+
+  function findExerciseDef(session, id) {
+    const list = sessionExercises(session);
+    for (let i = 0; i < list.length; i++) {
+      if (list[i].id === id) return list[i];
+    }
+    return null;
+  }
+
+  function prescribedSetCount(ex) {
+    let n = Number(ex && ex.defaultSets);
+    if (Number.isFinite(n) && n >= 1) return Math.floor(n);
+    const m = String((ex && ex.prescribed) || "").match(/[×x]\s*(\d+)\s*$/i);
+    if (m) {
+      n = Number(m[1]);
+      if (Number.isFinite(n) && n >= 1) return Math.floor(n);
+    }
+    return 1;
+  }
+
+  function defaultSetsArray(ex) {
+    const n = prescribedSetCount(ex);
+    const arr = [];
+    const w = (ex && ex.defaultWeight != null) ? String(ex.defaultWeight) : "";
+    const r = (ex && ex.defaultReps != null) ? String(ex.defaultReps) : "";
+    for (let i = 0; i < n; i++) {
+      arr.push({ weight: w, reps: r });
+    }
+    return arr;
+  }
+
+  /** Migrate old {weight,reps,sets} → {sets:[{weight,reps},...]} */
+  function normalizeExerciseData(ex, stored) {
+    if (!stored) return { sets: defaultSetsArray(ex) };
+    if (Array.isArray(stored.sets)) {
+      const sets = stored.sets.map(function (s) {
+        s = s || {};
+        return {
+          weight: s.weight != null ? String(s.weight) : "",
+          reps: s.reps != null ? String(s.reps) : ""
         };
       });
+      if (sets.length < 1) return { sets: defaultSetsArray(ex) };
+      return { sets: sets };
+    }
+    // Old aggregate shape
+    if (stored.weight != null || stored.reps != null || stored.sets != null) {
+      let n = Number(stored.sets);
+      if (!Number.isFinite(n) || n < 1) n = prescribedSetCount(ex);
+      n = Math.floor(n);
+      if (n < 1) n = 1;
+      const w = stored.weight != null ? String(stored.weight) : "";
+      const r = stored.reps != null ? String(stored.reps) : "";
+      const arr = [];
+      for (let i = 0; i < n; i++) {
+        arr.push({ weight: w, reps: r });
+      }
+      return { sets: arr };
+    }
+    return { sets: defaultSetsArray(ex) };
+  }
+
+  function defaultLog(session) {
+    const exercises = {};
+    sessionExercises(session).forEach(function (ex) {
+      exercises[ex.id] = { sets: defaultSetsArray(ex) };
     });
     return {
       warmups: {},
@@ -940,9 +1174,13 @@
   function mergeLog(session, stored) {
     const base = defaultLog(session);
     if (!stored) return base;
+    const exercises = {};
+    sessionExercises(session).forEach(function (ex) {
+      exercises[ex.id] = normalizeExerciseData(ex, (stored.exercises || {})[ex.id]);
+    });
     return {
       warmups: Object.assign({}, base.warmups, stored.warmups || {}),
-      exercises: Object.assign({}, base.exercises, stored.exercises || {}),
+      exercises: exercises,
       finisher: stored.finisher || base.finisher,
       finisherNotes: stored.finisherNotes || "",
       notes: stored.notes || ""
@@ -1046,13 +1284,36 @@
       .replace(/"/g, "&quot;");
   }
 
+  function setRowsHtml(ex, data) {
+    const prescribed = prescribedSetCount(ex);
+    const sets = (data && data.sets) ? data.sets : defaultSetsArray(ex);
+    let html = "<div class=\"set-rows\" data-ex-sets=\"" + esc(ex.id) + "\">";
+    for (let i = 0; i < sets.length; i++) {
+      const s = sets[i] || { weight: "", reps: "" };
+      const extra = i >= prescribed;
+      html += "<div class=\"set-row\" data-set-idx=\"" + i + "\">";
+      html += "<div class=\"set-label\">Set " + (i + 1) + "</div>";
+      html += "<div class=\"log-grid\">";
+      html += "<div class=\"field\"><label>Weight</label><input inputmode=\"decimal\" data-field=\"weight\" data-set=\"" + i + "\" value=\"" + esc(s.weight) + "\" placeholder=\"lb\"></div>";
+      html += "<div class=\"field\"><label>Reps</label><input inputmode=\"text\" data-field=\"reps\" data-set=\"" + i + "\" value=\"" + esc(s.reps) + "\" placeholder=\"reps\"></div>";
+      html += "</div>";
+      if (extra) {
+        html += "<button type=\"button\" class=\"btn-set btn-remove-set\" data-ex=\"" + esc(ex.id) + "\" data-set=\"" + i + "\" aria-label=\"Remove set " + (i + 1) + "\">−</button>";
+      }
+      html += "</div>";
+    }
+    html += "<button type=\"button\" class=\"btn-add-set\" data-ex=\"" + esc(ex.id) + "\">+ set</button>";
+    html += "</div>";
+    return html;
+  }
+
   function exerciseCard(ex, isLabelled) {
-    const data = log.exercises[ex.id] || { weight: "", reps: "", sets: "" };
+    const data = log.exercises[ex.id] || { sets: defaultSetsArray(ex) };
     const labelHtml = isLabelled
       ? "<span class=\"ex-label\">" + esc(ex.label) + "</span>"
       : "";
     return (
-      "<div class=\"exercise\" data-ex=\"" + esc(ex.id) + "\">" +
+      "<div class=\"exercise\" data-ex=\"" + esc(ex.id) + "\" data-prescribed-sets=\"" + prescribedSetCount(ex) + "\">" +
         "<div class=\"ex-top\">" +
           "<div>" +
             "<div class=\"ex-name\">" + labelHtml + esc(ex.name) + "</div>" +
@@ -1060,11 +1321,7 @@
             (ex.rest ? "<div class=\"ex-rest\">" + esc(ex.rest) + "</div>" : "") +
           "</div>" +
         "</div>" +
-        "<div class=\"log-grid\">" +
-          "<div class=\"field\"><label>Weight</label><input inputmode=\"decimal\" data-field=\"weight\" value=\"" + esc(data.weight) + "\" placeholder=\"lb\"></div>" +
-          "<div class=\"field\"><label>Reps</label><input inputmode=\"text\" data-field=\"reps\" value=\"" + esc(data.reps) + "\" placeholder=\"reps\"></div>" +
-          "<div class=\"field\"><label>Sets done</label><input inputmode=\"numeric\" data-field=\"sets\" value=\"" + esc(data.sets) + "\" placeholder=\"0\"></div>" +
-        "</div>" +
+        setRowsHtml(ex, data) +
       "</div>"
     );
   }
@@ -1076,6 +1333,71 @@
     return session.name + " — " + day;
   }
 
+  function ensureExerciseSets(id) {
+    const session = SESSIONS[currentSession];
+    const ex = findExerciseDef(session, id);
+    if (!log.exercises[id] || !Array.isArray(log.exercises[id].sets)) {
+      log.exercises[id] = normalizeExerciseData(ex || { defaultSets: "1" }, log.exercises[id]);
+    }
+    return log.exercises[id];
+  }
+
+  function refreshExerciseCard(id) {
+    const session = SESSIONS[currentSession];
+    const ex = findExerciseDef(session, id);
+    if (!ex) return;
+    const card = workoutRoot.querySelector('.exercise[data-ex="' + id + '"]');
+    if (!card) {
+      renderWorkout(true);
+      return;
+    }
+    const labelled = !!ex.label;
+    const tmp = document.createElement("div");
+    tmp.innerHTML = exerciseCard(ex, labelled);
+    const next = tmp.firstChild;
+    card.parentNode.replaceChild(next, card);
+    bindExerciseCard(next);
+  }
+
+  function bindExerciseCard(card) {
+    const id = card.getAttribute("data-ex");
+    card.querySelectorAll("input[data-field]").forEach(function (inp) {
+      const save = function () {
+        const entry = ensureExerciseSets(id);
+        const idx = Number(inp.getAttribute("data-set"));
+        const field = inp.getAttribute("data-field");
+        if (!entry.sets[idx]) entry.sets[idx] = { weight: "", reps: "" };
+        entry.sets[idx][field] = inp.value;
+        persist();
+      };
+      inp.addEventListener("input", save);
+      inp.addEventListener("change", save);
+    });
+    const addBtn = card.querySelector(".btn-add-set");
+    if (addBtn) {
+      addBtn.addEventListener("click", function () {
+        const entry = ensureExerciseSets(id);
+        const last = entry.sets.length ? entry.sets[entry.sets.length - 1] : { weight: "", reps: "" };
+        entry.sets.push({ weight: last.weight || "", reps: last.reps || "" });
+        persist();
+        refreshExerciseCard(id);
+      });
+    }
+    card.querySelectorAll(".btn-remove-set").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        const entry = ensureExerciseSets(id);
+        const session = SESSIONS[currentSession];
+        const ex = findExerciseDef(session, id);
+        const min = prescribedSetCount(ex || { defaultSets: "1" });
+        const idx = Number(btn.getAttribute("data-set"));
+        if (entry.sets.length <= min) return;
+        if (idx < min) return;
+        entry.sets.splice(idx, 1);
+        persist();
+        refreshExerciseCard(id);
+      });
+    });
+  }
 
   function bindWorkoutEvents() {
     workoutRoot.querySelectorAll("input[data-wu]").forEach(function (el) {
@@ -1088,16 +1410,7 @@
     });
 
     workoutRoot.querySelectorAll(".exercise").forEach(function (card) {
-      const id = card.getAttribute("data-ex");
-      card.querySelectorAll("input[data-field]").forEach(function (inp) {
-        const save = function () {
-          if (!log.exercises[id]) log.exercises[id] = { weight: "", reps: "", sets: "" };
-          log.exercises[id][inp.getAttribute("data-field")] = inp.value;
-          persist();
-        };
-        inp.addEventListener("input", save);
-        inp.addEventListener("change", save);
-      });
+      bindExerciseCard(card);
     });
 
     const fin = document.getElementById("finisherSelect");
@@ -1123,7 +1436,7 @@
     }
   }
 
-  function renderWorkout() {
+  function renderWorkout(skipScroll) {
     try {
       const session = SESSIONS[currentSession];
       if (!session) throw new Error("Unknown session: " + currentSession);
@@ -1198,10 +1511,12 @@
 
       workoutRoot.innerHTML = html;
       bindWorkoutEvents();
-      try {
-        workoutRoot.scrollIntoView({ behavior: "smooth", block: "start" });
-      } catch (scrollErr) {
-        /* ignore scroll failures in odd previews */
+      if (!skipScroll) {
+        try {
+          workoutRoot.scrollIntoView({ behavior: "smooth", block: "start" });
+        } catch (scrollErr) {
+          /* ignore scroll failures in odd previews */
+        }
       }
     } catch (err) {
       var msg = (err && err.message) ? err.message : String(err);
@@ -1254,18 +1569,20 @@
     return Number.isFinite(n) ? n : 0;
   }
 
-  function exerciseRowName(exerciseName) {
-    return dateKey + " " + currentSession + " · " + exerciseName;
+  function exerciseRowName(exerciseName, setIndex) {
+    var base = dateKey + " " + currentSession + " · " + exerciseName;
+    if (setIndex != null) return base + " · set " + setIndex;
+    return base;
   }
 
-  /** Notion sync: one object per exercise (+ optional __session_notes__). */
+  /** Notion sync: one object per performed set (+ optional __session_notes__). */
   function buildExportRows() {
     const session = SESSIONS[currentSession];
     const rows = [];
 
-    function pushRow(exerciseName, weight, reps, sets, superset, slot, notes) {
+    function pushRow(name, exerciseName, weight, reps, sets, superset, slot, notes) {
       rows.push({
-        name: exerciseRowName(exerciseName),
+        name: name,
         date: dateKey,
         session: currentSession,
         exercise: exerciseName,
@@ -1279,16 +1596,32 @@
       });
     }
 
+    function pushExerciseSets(ex, superset, slot) {
+      const d = normalizeExerciseData(ex, log.exercises[ex.id]);
+      const sets = d.sets || [];
+      for (let i = 0; i < sets.length; i++) {
+        const s = sets[i] || {};
+        pushRow(
+          exerciseRowName(ex.name, i + 1),
+          ex.name,
+          s.weight,
+          s.reps,
+          1,
+          superset,
+          slot,
+          ""
+        );
+      }
+    }
+
     if (session.straight) {
-      const d = log.exercises[session.straight.id] || {};
-      pushRow(session.straight.name, d.weight, d.reps, d.sets, "straight", "—", "");
+      pushExerciseSets(session.straight, "straight", "—");
     }
 
     session.supersets.forEach(function (ss, idx) {
       const ssNum = String(ss.id && /^ss\d+$/.test(ss.id) ? ss.id.slice(2) : idx + 1);
       [ss.a, ss.b].forEach(function (ex) {
-        const d = log.exercises[ex.id] || {};
-        pushRow(ex.name, d.weight, d.reps, d.sets, ssNum, ex.label || "—", "");
+        pushExerciseSets(ex, ssNum, ex.label || "—");
       });
     });
 
@@ -1304,7 +1637,16 @@
       noteParts.push(String(log.notes).trim());
     }
     if (noteParts.length) {
-      pushRow("__session_notes__", 0, 0, 0, "straight", "—", noteParts.join("\n"));
+      pushRow(
+        exerciseRowName("__session_notes__"),
+        "__session_notes__",
+        0,
+        0,
+        0,
+        "straight",
+        "—",
+        noteParts.join("\n")
+      );
     }
 
     return rows;
