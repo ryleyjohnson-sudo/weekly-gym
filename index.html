@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0b0d10">
+<title>Weekly Gym — Sessions A/B/C</title>
+<style>
+  :root {
+    --bg: #0b0d10;
+    --bg2: #12161c;
+    --card: #171c24;
+    --card2: #1c2330;
+    --border: #2a3344;
+    --border-soft: #222a38;
+    --text: #eef2f7;
+    --muted: #8b97a8;
+    --dim: #5c6a7c;
+    --accent: #3dd6c6;
+    --accent-dim: rgba(61, 214, 198, 0.14);
+    --accent2: #7aa2ff;
+    --warn: #f0b429;
+    --danger: #ff6b6b;
+    --ok: #5bd67a;
+    --radius: 14px;
+    --tap: 48px;
+    --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --safe-b: env(safe-area-inset-bottom, 0px);
+    --safe-t: env(safe-area-inset-top, 0px);
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.45;
+    min-height: 100dvh;
+    padding: calc(12px + var(--safe-t)) 14px calc(28px + var(--safe-b));
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 480px; margin: 0 auto; }
+
+  header.app-head {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 18px;
+  }
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+  }
+  h1 {
+    margin: 0;
+    font-size: 1.55rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .date-line {
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+
+  .banner {
+    background: linear-gradient(135deg, #1a2433 0%, #14201f 100%);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    margin-bottom: 14px;
+  }
+  .banner strong { color: var(--accent); }
+  .banner .sub { color: var(--muted); font-size: 0.88rem; margin-top: 4px; }
+
+  .seg {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .seg button {
+    appearance: none;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--muted);
+    border-radius: 12px;
+    min-height: var(--tap);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .15s, border-color .15s, color .15s;
+  }
+  .seg button.active {
+    background: var(--accent-dim);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .seg button:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+    padding: 14px 14px 12px;
+    margin-bottom: 12px;
+  }
+  .card h2 {
+    margin: 0 0 10px;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 700;
+  }
+  .card h3 {
+    margin: 0 0 6px;
+    font-size: 1.05rem;
+    font-weight: 650;
+  }
+
+  details.collapsible {
+    background: var(--card);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  details.collapsible > summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 14px;
+    font-weight: 650;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    min-height: var(--tap);
+  }
+  details.collapsible > summary::-webkit-details-marker { display: none; }
+  details.collapsible > summary::after {
+    content: "▾";
+    color: var(--dim);
+    font-size: 0.85rem;
+    transition: transform .2s;
+  }
+  details.collapsible[open] > summary::after { transform: rotate(180deg); }
+  details.collapsible .body { padding: 0 14px 14px; color: var(--muted); font-size: 0.9rem; }
+  details.collapsible .body p { margin: 0 0 8px; }
+  details.collapsible .body ul { margin: 0; padding-left: 1.15em; }
+  details.collapsible .body li { margin-bottom: 4px; }
+
+  .check-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-soft);
+    min-height: var(--tap);
+  }
+  .check-row:last-child { border-bottom: none; }
+  .check-row input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+    margin-top: 2px;
+    accent-color: var(--accent);
+    flex-shrink: 0;
+  }
+  .check-row label {
+    flex: 1;
+    font-size: 0.95rem;
+    color: var(--text);
+    cursor: pointer;
+  }
+  .check-row.done label { color: var(--muted); text-decoration: line-through; }
+
+  .exercise {
+    background: var(--card2);
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 10px;
+  }
+  .exercise:last-child { margin-bottom: 0; }
+  .ex-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .ex-label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 34px;
+    height: 26px;
+    padding: 0 8px;
+    border-radius: 8px;
+    background: var(--accent-dim);
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+  .ex-name { font-weight: 650; font-size: 1rem; }
+  .ex-prescribed {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-top: 2px;
+    font-family: var(--mono);
+  }
+  .ex-rest {
+    font-size: 0.78rem;
+    color: var(--dim);
+    margin-top: 4px;
+  }
+
+  .log-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .field label {
+    display: block;
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+  .field input, .field select, .field textarea {
+    width: 100%;
+    appearance: none;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 10px;
+    padding: 11px 12px;
+    font-size: 1rem;
+    font-family: inherit;
+    min-height: 44px;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-dim);
+  }
+  .field textarea {
+    min-height: 88px;
+    resize: vertical;
+    line-height: 1.4;
+  }
+
+  .superset {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 12px;
+    background: var(--card);
+  }
+  .superset-head {
+    background: linear-gradient(90deg, rgba(61,214,198,0.12), transparent);
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border-soft);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .superset-head .title {
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+  .superset-head .hint {
+    font-size: 0.8rem;
+    color: var(--warn);
+  }
+  .superset-body { padding: 12px; }
+  .pair-arrow {
+    text-align: center;
+    color: var(--accent);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 2px 0 8px;
+    opacity: 0.85;
+  }
+
+  .straight-badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    background: rgba(122,162,255,0.12);
+    border-radius: 6px;
+    padding: 3px 8px;
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+
+  .toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 4px 0;
+  }
+  .toggle {
+    position: relative;
+    width: 52px;
+    height: 32px;
+    flex-shrink: 0;
+  }
+  .toggle input { opacity: 0; width: 0; height: 0; }
+  .toggle .slider {
+    position: absolute;
+    inset: 0;
+    background: #2a3344;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background .2s;
+  }
+  .toggle .slider::before {
+    content: "";
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    left: 3px;
+    top: 3px;
+    background: #fff;
+    border-radius: 50%;
+    transition: transform .2s;
+  }
+  .toggle input:checked + .slider { background: var(--accent); }
+  .toggle input:checked + .slider::before { transform: translateX(20px); }
+
+  .actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 4px;
+    margin-bottom: 12px;
+  }
+  .btn {
+    appearance: none;
+    border: none;
+    border-radius: 12px;
+    min-height: var(--tap);
+    font-size: 0.95rem;
+    font-weight: 650;
+    cursor: pointer;
+    padding: 12px 14px;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #06201c;
+  }
+  .btn-secondary {
+    background: var(--card2);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn:active { transform: scale(0.98); }
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: calc(24px + var(--safe-b));
+    transform: translateX(-50%) translateY(120%);
+    background: #1f2a22;
+    color: var(--ok);
+    border: 1px solid rgba(91,214,122,0.35);
+    padding: 12px 18px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    z-index: 50;
+    transition: transform .25s ease;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  .meta-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+  }
+  .pill {
+    font-size: 0.75rem;
+    color: var(--muted);
+    background: var(--bg);
+    border: 1px solid var(--border-soft);
+    border-radius: 999px;
+    padding: 4px 10px;
+  }
+
+  footer.note {
+    text-align: center;
+    color: var(--dim);
+    font-size: 0.78rem;
+    margin-top: 8px;
+    padding-bottom: 8px;
+  }
+
+  .sync-hint {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.82rem;
+    margin: 8px 0 10px;
+    line-height: 1.35;
+  }
+
+
+  .session-heading {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(11, 13, 16, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px 14px;
+    margin-bottom: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  }
+  .session-heading .sh-title {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+  .session-heading .sh-sub {
+    margin-top: 2px;
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+  .static-note {
+    background: rgba(240, 180, 41, 0.12);
+    border: 1px solid rgba(240, 180, 41, 0.45);
+    color: var(--warn);
+    border-radius: 12px;
+    padding: 10px 12px;
+    font-size: 0.85rem;
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+  .error-card {
+    background: rgba(255, 107, 107, 0.12);
+    border: 1px solid rgba(255, 107, 107, 0.5);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    color: var(--danger);
+  }
+  .error-card strong { display: block; margin-bottom: 6px; color: var(--text); }
+  .error-card code {
+    display: block;
+    margin-top: 8px;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--muted);
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .static-workout .log-grid input,
+  .static-workout .field input,
+  .static-workout .field select,
+  .static-workout .field textarea {
+    pointer-events: none;
+  }
+
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="app-head">
+    <div class="eyebrow">Full-body · 45–50 min</div>
+    <h1>Weekly Gym</h1>
+    <div class="date-line" id="dateLine"></div>
+  </header>
+
+  <div class="banner" id="todayBanner"></div>
+
+  <div class="seg" id="sessionPicker" role="tablist" aria-label="Session picker">
+    <button type="button" data-session="A" aria-pressed="false">A · Mon</button>
+    <button type="button" data-session="B" aria-pressed="false">B · Fri</button>
+    <button type="button" data-session="C" aria-pressed="false" id="btnC">C · Wed</button>
+  </div>
+
+  <div class="card" id="wedCard">
+    <div class="toggle-row">
+      <div>
+        <strong>Opt in Wednesday</strong>
+        <div style="color:var(--muted);font-size:0.85rem;margin-top:2px">Show lighter Session C</div>
+      </div>
+      <label class="toggle" aria-label="Opt in Wednesday">
+        <input type="checkbox" id="wedOptIn">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+
+  <details class="collapsible">
+    <summary>How to use · progression · steps</summary>
+    <div class="body">
+      <p><strong style="color:var(--text)">How to use</strong> — Warm up, then work the straight lift, then supersets. Little rest between pair partners; ~60–90s after the pair. Log weight / reps / sets as you go. Finish with cardio. Notes optional.</p>
+      <p><strong style="color:var(--text)">Progression</strong> — If all target reps hit with solid form, next session add load (~5 lb barbell / 2.5–5 lb DBs) <em>or</em> +1–2 reps.</p>
+      <p><strong style="color:var(--text)">Steps</strong> — Target 8,000 min / ~9,000 avg (Whoop). Renpho optional.</p>
+      <p style="margin-bottom:0">Prefer dumbbells for bench &amp; OHP. Leave 2 in the tank on heavy pulls. Brief calf + hamstring mobility every session.</p>
+    </div>
+  </details>
+
+  <details class="collapsible">
+    <summary>Macro reference (one-time)</summary>
+    <div class="body">
+      <p>Fat-loss guide only — not daily tracking.</p>
+      <ul>
+        <li>~2,200–2,400 kcal</li>
+        <li>Protein ~180g</li>
+        <li>Fat ~60–70g</li>
+        <li>Carbs fill</li>
+      </ul>
+      <p style="margin:8px 0 0">Athlete: 183 lb · 5'11" · goal 19.1% → 15% BF</p>
+    </div>
+  </details>
+
+  <div id="workoutRoot">
+    <div class="session-heading" id="sessionHeading">
+      <div class="sh-title">Session A — Monday</div>
+      <div class="sh-sub">Full-body · squat focus</div>
+    </div>
+    <div class="static-note" id="staticPreviewNote">
+      If this stays static, open the file in Safari/Chrome (not a chat preview).
+    </div>
+    <noscript>
+      <div class="static-note">JavaScript is off — showing Session A (Monday) as a static plan. Open in Safari/Chrome for logging &amp; session switching.</div>
+    </noscript>
+    <div class="static-workout" id="staticWorkoutA">
+      <div class="card">
+        <h2>Warm-up · ~5–7 min</h2>
+        <div class="check-row">
+          <input type="checkbox" id="static-wu-0" disabled>
+          <label for="static-wu-0">Calf + hamstring mobility</label>
+        </div>
+        <div class="check-row">
+          <input type="checkbox" id="static-wu-1" disabled>
+          <label for="static-wu-1">Easy rower / assault 2–3 min</label>
+        </div>
+        <div class="check-row">
+          <input type="checkbox" id="static-wu-2" disabled>
+          <label for="static-wu-2">1–2 light squat warm-up sets</label>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Main lift</h2>
+        <div class="straight-badge">Straight sets</div>
+        <div class="exercise">
+          <div class="ex-top">
+            <div>
+              <div class="ex-name">Back squat</div>
+              <div class="ex-prescribed">135 × 8 × 3</div>
+              <div class="ex-rest">Rest 90–120s between sets</div>
+            </div>
+          </div>
+          <div class="log-grid">
+            <div class="field"><label>Weight</label><input value="135" readonly></div>
+            <div class="field"><label>Reps</label><input value="8" readonly></div>
+            <div class="field"><label>Sets done</label><input value="3" readonly></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="superset">
+        <div class="superset-head">
+          <div class="title">Superset 1 · 3 rounds</div>
+          <div class="hint">Little rest between pair · ~60–90s after</div>
+        </div>
+        <div class="superset-body">
+          <div class="exercise">
+            <div class="ex-top"><div>
+              <div class="ex-name"><span class="ex-label">A1</span>DB bench</div>
+              <div class="ex-prescribed">45s × 10</div>
+            </div></div>
+            <div class="log-grid">
+              <div class="field"><label>Weight</label><input value="45" readonly></div>
+              <div class="field"><label>Reps</label><input value="10" readonly></div>
+              <div class="field"><label>Sets done</label><input value="3" readonly></div>
+            </div>
+          </div>
+          <div class="pair-arrow">↓ then immediately ↓</div>
+          <div class="exercise">
+            <div class="ex-top"><div>
+              <div class="ex-name"><span class="ex-label">A2</span>Banded pull-ups</div>
+              <div class="ex-prescribed">quality reps</div>
+            </div></div>
+            <div class="log-grid">
+              <div class="field"><label>Weight</label><input value="" readonly placeholder="lb"></div>
+              <div class="field"><label>Reps</label><input value="" readonly placeholder="reps"></div>
+              <div class="field"><label>Sets done</label><input value="3" readonly></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="superset">
+        <div class="superset-head">
+          <div class="title">Superset 2 · 3 rounds</div>
+          <div class="hint">Little rest between pair · ~60–90s after</div>
+        </div>
+        <div class="superset-body">
+          <div class="exercise">
+            <div class="ex-top"><div>
+              <div class="ex-name"><span class="ex-label">B1</span>Seated DB press</div>
+              <div class="ex-prescribed">35s × 10</div>
+            </div></div>
+            <div class="log-grid">
+              <div class="field"><label>Weight</label><input value="35" readonly></div>
+              <div class="field"><label>Reps</label><input value="10" readonly></div>
+              <div class="field"><label>Sets done</label><input value="3" readonly></div>
+            </div>
+          </div>
+          <div class="pair-arrow">↓ then immediately ↓</div>
+          <div class="exercise">
+            <div class="ex-top"><div>
+              <div class="ex-name"><span class="ex-label">B2</span>DB curls</div>
+              <div class="ex-prescribed">10–12</div>
+            </div></div>
+            <div class="log-grid">
+              <div class="field"><label>Weight</label><input value="" readonly placeholder="lb"></div>
+              <div class="field"><label>Reps</label><input value="10-12" readonly></div>
+              <div class="field"><label>Sets done</label><input value="3" readonly></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="superset">
+        <div class="superset-head">
+          <div class="title">Superset 3 · 2–3 rounds</div>
+          <div class="hint">Little rest between pair · ~60–90s after</div>
+        </div>
+        <div class="superset-body">
+          <div class="exercise">
+            <div class="ex-top"><div>
+              <div class="ex-name"><span class="ex-label">C1</span>Light RDL / good morning</div>
+              <div class="ex-prescribed">8–10</div>
+            </div></div>
+            <div class="log-grid">
+              <div class="field"><label>Weight</label><input value="" readonly placeholder="lb"></div>
+              <div class="field"><label>Reps</label><input value="8-10" readonly></div>
+              <div class="field"><label>Sets done</label><input value="2" readonly></div>
+            </div>
+          </div>
+          <div class="pair-arrow">↓ then immediately ↓</div>
+          <div class="exercise">
+            <div class="ex-top"><div>
+              <div class="ex-name"><span class="ex-label">C2</span>Abs</div>
+              <div class="ex-prescribed">10–15</div>
+            </div></div>
+            <div class="log-grid">
+              <div class="field"><label>Weight</label><input value="" readonly placeholder="lb"></div>
+              <div class="field"><label>Reps</label><input value="10-15" readonly></div>
+              <div class="field"><label>Sets done</label><input value="2" readonly></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Finisher · ~5–8 min</h2>
+        <p style="margin:0;color:var(--muted);font-size:0.92rem">Rower · Assault bike · Incline treadmill</p>
+      </div>
+
+      <div class="card">
+        <h2>Session notes</h2>
+        <div class="meta-pills">
+          <span class="pill">Session A</span>
+          <span class="pill">Monday</span>
+          <span class="pill">Steps 8k / 9k</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="sync-hint">After the session: Copy JSON → paste to Workout Plan and say sync</p>
+  <div class="actions">
+    <button type="button" class="btn btn-secondary" id="btnCopyText">Copy text</button>
+    <button type="button" class="btn btn-primary" id="btnCopyJson">Copy JSON</button>
+  </div>
+
+  <footer class="note">Logs save on this device · America/Los_Angeles</footer>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  const TZ = "America/Los_Angeles";
+  const FINISHERS = [
+    "Rower",
+    "Assault bike",
+    "Incline treadmill",
+    "Easy walk (steps)",
+    "Skip / none"
+  ];
+
+  const SESSIONS = {
+    A: {
+      id: "A",
+      name: "Session A",
+      dayHint: "Monday",
+      warmups: [
+        "Calf + hamstring mobility",
+        "Easy rower / assault 2–3 min",
+        "1–2 light squat warm-up sets"
+      ],
+      straight: {
+        id: "sq",
+        name: "Back squat",
+        prescribed: "135 × 8 × 3",
+        rest: "Rest 90–120s between sets",
+        defaultWeight: "135",
+        defaultReps: "8",
+        defaultSets: "3"
+      },
+      supersets: [
+        {
+          id: "ss1",
+          title: "Superset 1 · 3 rounds",
+          a: { id: "a1", label: "A1", name: "DB bench", prescribed: "45s × 10", defaultWeight: "45", defaultReps: "10", defaultSets: "3" },
+          b: { id: "a2", label: "A2", name: "Banded pull-ups", prescribed: "quality reps", defaultWeight: "", defaultReps: "", defaultSets: "3" }
+        },
+        {
+          id: "ss2",
+          title: "Superset 2 · 3 rounds",
+          a: { id: "b1", label: "B1", name: "Seated DB press", prescribed: "35s × 10", defaultWeight: "35", defaultReps: "10", defaultSets: "3" },
+          b: { id: "b2", label: "B2", name: "DB curls", prescribed: "10–12", defaultWeight: "", defaultReps: "10-12", defaultSets: "3" }
+        },
+        {
+          id: "ss3",
+          title: "Superset 3 · 2–3 rounds",
+          a: { id: "c1", label: "C1", name: "Light RDL / good morning", prescribed: "8–10", defaultWeight: "", defaultReps: "8-10", defaultSets: "2" },
+          b: { id: "c2", label: "C2", name: "Abs", prescribed: "10–15", defaultWeight: "", defaultReps: "10-15", defaultSets: "2" }
+        }
+      ],
+      finishers: ["Rower", "Assault bike", "Incline treadmill"]
+    },
+    B: {
+      id: "B",
+      name: "Session B",
+      dayHint: "Friday",
+      warmups: [
+        "Calf + hamstring mobility",
+        "Easy rower / assault 2–3 min",
+        "1–2 light trap-bar / RDL warm-up sets"
+      ],
+      straight: {
+        id: "tbdl",
+        name: "Trap bar DL (or RDL)",
+        prescribed: "155 × 6–8 × 3 · leave 2 in tank",
+        rest: "Rest 90–120s between sets",
+        defaultWeight: "155",
+        defaultReps: "6-8",
+        defaultSets: "3"
+      },
+      supersets: [
+        {
+          id: "ss1",
+          title: "Superset 1 · 3 rounds",
+          a: { id: "a1", label: "A1", name: "Incline DB press", prescribed: "40s × 10", defaultWeight: "40", defaultReps: "10", defaultSets: "3" },
+          b: { id: "a2", label: "A2", name: "Pulley / chest-supported row", prescribed: "10–12", defaultWeight: "", defaultReps: "10-12", defaultSets: "3" }
+        },
+        {
+          id: "ss2",
+          title: "Superset 2 · 3 rounds",
+          a: { id: "b1", label: "B1", name: "Standing DB OHP", prescribed: "35s × 8–10", defaultWeight: "35", defaultReps: "8-10", defaultSets: "3" },
+          b: { id: "b2", label: "B2", name: "Hammer / incline curls", prescribed: "10–12", defaultWeight: "", defaultReps: "10-12", defaultSets: "3" }
+        },
+        {
+          id: "ss3",
+          title: "Superset 3 · 2–3 rounds",
+          a: { id: "c1", label: "C1", name: "Lat pulldown / assisted pull-up (or dips 6–10)", prescribed: "8–12", defaultWeight: "", defaultReps: "8-12", defaultSets: "2" },
+          b: { id: "c2", label: "C2", name: "Abs", prescribed: "10–15", defaultWeight: "", defaultReps: "10-15", defaultSets: "2" }
+        }
+      ],
+      finishers: ["Rower", "Assault bike", "Incline treadmill"]
+    },
+    C: {
+      id: "C",
+      name: "Session C",
+      dayHint: "Wednesday (opt-in)",
+      warmups: [
+        "Calf + hamstring mobility",
+        "Easy 2–3 min cardio or walk"
+      ],
+      straight: null,
+      supersets: [
+        {
+          id: "ss1",
+          title: "Superset 1 · 2–3 rounds",
+          a: { id: "a1", label: "A1", name: "Goblet / light squat", prescribed: "× 8", defaultWeight: "", defaultReps: "8", defaultSets: "2" },
+          b: { id: "a2", label: "A2", name: "Seated row / band pull-aparts", prescribed: "× 10", defaultWeight: "", defaultReps: "10", defaultSets: "2" }
+        },
+        {
+          id: "ss2",
+          title: "Superset 2 · 2–3 rounds",
+          a: { id: "b1", label: "B1", name: "Easier DB press", prescribed: "8–10", defaultWeight: "", defaultReps: "8-10", defaultSets: "2" },
+          b: { id: "b2", label: "B2", name: "Abs", prescribed: "10–15", defaultWeight: "", defaultReps: "10-15", defaultSets: "2" }
+        }
+      ],
+      finishers: ["Easy 5 min", "Walk for steps", "Skip / none"]
+    }
+  };
+
+  // --- Time helpers (America/Los_Angeles) ---
+  function partsInTZ(date) {
+    const fmt = new Intl.DateTimeFormat("en-US", {
+      timeZone: TZ,
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true
+    });
+    const map = {};
+    for (const p of fmt.formatToParts(date)) {
+      if (p.type !== "literal") map[p.type] = p.value;
+    }
+    return map;
+  }
+
+  function dateKeyInTZ(date) {
+    const fmt = new Intl.DateTimeFormat("en-CA", {
+      timeZone: TZ,
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit"
+    });
+    return fmt.format(date); // YYYY-MM-DD
+  }
+
+  function weekdayInTZ(date) {
+    return new Intl.DateTimeFormat("en-US", { timeZone: TZ, weekday: "long" }).format(date);
+  }
+
+  function nextSessionInfo(weekday) {
+    // Mon=A, Fri=B; Wed=C only if opted in (handled separately for banner)
+    if (weekday === "Monday") return { session: "A", label: "Today is Session A", isToday: true };
+    if (weekday === "Friday") return { session: "B", label: "Today is Session B", isToday: true };
+    if (weekday === "Wednesday") return { session: "C", label: "Today could be Session C (opt-in)", isToday: true, isOptionalC: true };
+    // Next session tip
+    const order = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+    const idx = order.indexOf(weekday);
+    // Find next Mon or Fri
+    for (let i = 1; i <= 7; i++) {
+      const d = order[(idx + i) % 7];
+      if (d === "Monday") return { session: "A", label: "Next up: Session A (Monday)", isToday: false };
+      if (d === "Friday") return { session: "B", label: "Next up: Session B (Friday)", isToday: false };
+    }
+    return { session: "A", label: "Pick a session", isToday: false };
+  }
+
+  // --- Storage ---
+  const PREF_KEY = "gym-wed-optin";
+  const LAST_SESSION_KEY = "gym-last-session";
+
+  function logKey(dateKey, sessionId) {
+    return "gym-log:" + dateKey + ":" + sessionId;
+  }
+
+  function loadLog(dateKey, sessionId) {
+    try {
+      const raw = localStorage.getItem(logKey(dateKey, sessionId));
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function saveLog(dateKey, sessionId, data) {
+    try {
+      localStorage.setItem(logKey(dateKey, sessionId), JSON.stringify(data));
+    } catch (e) {
+      showToast("Could not save (storage full?)");
+    }
+  }
+
+  function defaultLog(session) {
+    const exercises = {};
+    if (session.straight) {
+      exercises[session.straight.id] = {
+        weight: session.straight.defaultWeight,
+        reps: session.straight.defaultReps,
+        sets: session.straight.defaultSets
+      };
+    }
+    session.supersets.forEach(function (ss) {
+      [ss.a, ss.b].forEach(function (ex) {
+        exercises[ex.id] = {
+          weight: ex.defaultWeight,
+          reps: ex.defaultReps,
+          sets: ex.defaultSets
+        };
+      });
+    });
+    return {
+      warmups: {},
+      exercises: exercises,
+      finisher: session.finishers[0] || FINISHERS[0],
+      finisherNotes: "",
+      notes: ""
+    };
+  }
+
+  function mergeLog(session, stored) {
+    const base = defaultLog(session);
+    if (!stored) return base;
+    return {
+      warmups: Object.assign({}, base.warmups, stored.warmups || {}),
+      exercises: Object.assign({}, base.exercises, stored.exercises || {}),
+      finisher: stored.finisher || base.finisher,
+      finisherNotes: stored.finisherNotes || "",
+      notes: stored.notes || ""
+    };
+  }
+
+  // --- State ---
+  const now = new Date();
+  const dateKey = dateKeyInTZ(now);
+  const parts = partsInTZ(now);
+  const weekday = weekdayInTZ(now);
+  let wedOptIn = localStorage.getItem(PREF_KEY) === "1";
+  const info = nextSessionInfo(weekday);
+
+  let currentSession = (function () {
+    if (info.isToday && info.session === "A") return "A";
+    if (info.isToday && info.session === "B") return "B";
+    if (info.isToday && info.session === "C" && wedOptIn) return "C";
+    if (info.isToday && info.isOptionalC && !wedOptIn) {
+      // show next non-C session suggestion but allow picker
+      return info.session === "C" ? (localStorage.getItem(LAST_SESSION_KEY) || "A") : info.session;
+    }
+    // other days: default to next session (A or B)
+    if (!info.isToday) return info.session;
+    return localStorage.getItem(LAST_SESSION_KEY) || "A";
+  })();
+
+  // Fix Wed without opt-in: don't default to C
+  if (currentSession === "C" && !wedOptIn) {
+    currentSession = localStorage.getItem(LAST_SESSION_KEY) === "C"
+      ? (info.session === "C" ? "A" : info.session)
+      : (info.session === "C" ? "A" : info.session);
+    if (currentSession === "C") currentSession = "A";
+  }
+
+  let log = mergeLog(SESSIONS[currentSession], loadLog(dateKey, currentSession));
+
+  // --- DOM ---
+  const dateLine = document.getElementById("dateLine");
+  const todayBanner = document.getElementById("todayBanner");
+  const workoutRoot = document.getElementById("workoutRoot");
+  const wedOptInEl = document.getElementById("wedOptIn");
+  const btnC = document.getElementById("btnC");
+  const toast = document.getElementById("toast");
+
+  dateLine.textContent = parts.weekday + ", " + parts.month + " " + parts.day + " · " + parts.hour + ":" + parts.minute + " " + (parts.dayPeriod || "") + " PT";
+
+  function updateBanner() {
+    let html = "";
+    if (weekday === "Monday") {
+      html = "<strong>Today → Session A</strong><div class=\"sub\">Auto-selected for Monday (PT). Swap anytime.</div>";
+    } else if (weekday === "Friday") {
+      html = "<strong>Today → Session B</strong><div class=\"sub\">Auto-selected for Friday (PT). Swap anytime.</div>";
+    } else if (weekday === "Wednesday") {
+      if (wedOptIn) {
+        html = "<strong>Today → Session C (opted in)</strong><div class=\"sub\">Lighter Wednesday session. Toggle off to hide C.</div>";
+      } else {
+        html = "<strong>Next up: " + (info.session === "C" ? "Session A (Monday)" : ("Session " + info.session)) + "</strong><div class=\"sub\">Wednesday C is off. Opt in below, or pick A/B.</div>";
+      }
+    } else {
+      html = "<strong>" + info.label + "</strong><div class=\"sub\">Not an anchor day — pick A, B" + (wedOptIn ? ", or C" : "") + ".</div>";
+    }
+    todayBanner.innerHTML = html;
+  }
+
+  function updatePicker() {
+    document.querySelectorAll("#sessionPicker button").forEach(function (btn) {
+      const s = btn.getAttribute("data-session");
+      const active = s === currentSession;
+      btn.classList.toggle("active", active);
+      btn.setAttribute("aria-pressed", active ? "true" : "false");
+      if (s === "C") {
+        btn.disabled = !wedOptIn;
+        btn.classList.toggle("hidden", false);
+        if (!wedOptIn) {
+          btn.title = "Enable Opt in Wednesday first";
+        } else {
+          btn.title = "";
+        }
+      }
+    });
+    wedOptInEl.checked = wedOptIn;
+  }
+
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add("show");
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(function () { toast.classList.remove("show"); }, 1800);
+  }
+
+  function persist() {
+    saveLog(dateKey, currentSession, log);
+  }
+
+  function esc(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function exerciseCard(ex, isLabelled) {
+    const data = log.exercises[ex.id] || { weight: "", reps: "", sets: "" };
+    const labelHtml = isLabelled
+      ? "<span class=\"ex-label\">" + esc(ex.label) + "</span>"
+      : "";
+    return (
+      "<div class=\"exercise\" data-ex=\"" + esc(ex.id) + "\">" +
+        "<div class=\"ex-top\">" +
+          "<div>" +
+            "<div class=\"ex-name\">" + labelHtml + esc(ex.name) + "</div>" +
+            "<div class=\"ex-prescribed\">" + esc(ex.prescribed) + "</div>" +
+            (ex.rest ? "<div class=\"ex-rest\">" + esc(ex.rest) + "</div>" : "") +
+          "</div>" +
+        "</div>" +
+        "<div class=\"log-grid\">" +
+          "<div class=\"field\"><label>Weight</label><input inputmode=\"decimal\" data-field=\"weight\" value=\"" + esc(data.weight) + "\" placeholder=\"lb\"></div>" +
+          "<div class=\"field\"><label>Reps</label><input inputmode=\"text\" data-field=\"reps\" value=\"" + esc(data.reps) + "\" placeholder=\"reps\"></div>" +
+          "<div class=\"field\"><label>Sets done</label><input inputmode=\"numeric\" data-field=\"sets\" value=\"" + esc(data.sets) + "\" placeholder=\"0\"></div>" +
+        "</div>" +
+      "</div>"
+    );
+  }
+
+  function sessionHeadingLabel(session) {
+    var day = session.dayHint || "";
+    // Prefer short weekday for sticky title (drop parenthetical for C)
+    if (session.id === "C") day = "Wednesday";
+    return session.name + " — " + day;
+  }
+
+  function renderWorkout() {
+    try {
+      const session = SESSIONS[currentSession];
+      if (!session) throw new Error("Unknown session: " + currentSession);
+
+      let html = "";
+      html += "<div class=\"session-heading\" id=\"sessionHeading\">";
+      html += "<div class=\"sh-title\">" + esc(sessionHeadingLabel(session)) + "</div>";
+      html += "<div class=\"sh-sub\">" + esc(session.id === "C" ? "Lighter opt-in day" : "Full-body · 45–50 min") + "</div>";
+      html += "</div>";
+
+      // Warm-up
+      html += "<div class=\"card\"><h2>Warm-up · ~5–7 min</h2>";
+      session.warmups.forEach(function (w, i) {
+        const key = "w" + i;
+        const checked = !!log.warmups[key];
+        html +=
+          "<div class=\"check-row" + (checked ? " done" : "") + "\">" +
+            "<input type=\"checkbox\" id=\"wu-" + key + "\" data-wu=\"" + key + "\"" + (checked ? " checked" : "") + ">" +
+            "<label for=\"wu-" + key + "\">" + esc(w) + "</label>" +
+          "</div>";
+      });
+      html += "</div>";
+
+      // Straight lift
+      if (session.straight) {
+        html += "<div class=\"card\">";
+        html += "<h2>Main lift</h2>";
+        html += "<div class=\"straight-badge\">Straight sets</div>";
+        html += exerciseCard(session.straight, false);
+        html += "</div>";
+      }
+
+      // Supersets
+      session.supersets.forEach(function (ss) {
+        html += "<div class=\"superset\">";
+        html += "<div class=\"superset-head\">";
+        html += "<div class=\"title\">" + esc(ss.title) + "</div>";
+        html += "<div class=\"hint\">Little rest between pair · ~60–90s after</div>";
+        html += "</div>";
+        html += "<div class=\"superset-body\">";
+        html += exerciseCard(ss.a, true);
+        html += "<div class=\"pair-arrow\">↓ then immediately ↓</div>";
+        html += exerciseCard(ss.b, true);
+        html += "</div></div>";
+      });
+
+      // Finisher
+      const finOpts = session.finishers;
+      html += "<div class=\"card\"><h2>Finisher · ~5–8 min</h2>";
+      html += "<div class=\"field\" style=\"margin-bottom:10px\"><label>Choice</label><select id=\"finisherSelect\">";
+      finOpts.forEach(function (f) {
+        html += "<option value=\"" + esc(f) + "\"" + (log.finisher === f ? " selected" : "") + ">" + esc(f) + "</option>";
+      });
+      // allow other common options if not listed
+      FINISHERS.forEach(function (f) {
+        if (finOpts.indexOf(f) === -1) {
+          html += "<option value=\"" + esc(f) + "\"" + (log.finisher === f ? " selected" : "") + ">" + esc(f) + "</option>";
+        }
+      });
+      html += "</select></div>";
+      html += "<div class=\"field\"><label>Finisher notes</label><input type=\"text\" id=\"finisherNotes\" value=\"" + esc(log.finisherNotes) + "\" placeholder=\"e.g. 6 min easy, HR under 140\"></div>";
+      html += "</div>";
+
+      // Notes
+      html += "<div class=\"card\"><h2>Session notes</h2>";
+      html += "<div class=\"field\"><textarea id=\"sessionNotes\" placeholder=\"How it felt, form cues, sleep, etc.\">" + esc(log.notes) + "</textarea></div>";
+      html += "<div class=\"meta-pills\">";
+      html += "<span class=\"pill\">" + esc(session.name) + "</span>";
+      html += "<span class=\"pill\">" + esc(dateKey) + " PT</span>";
+      html += "<span class=\"pill\">Steps 8k / 9k</span>";
+      html += "</div></div>";
+
+      workoutRoot.innerHTML = html;
+      bindWorkoutEvents();
+      try {
+        workoutRoot.scrollIntoView({ behavior: "smooth", block: "start" });
+      } catch (scrollErr) {
+        /* ignore scroll failures in odd previews */
+      }
+    } catch (err) {
+      var msg = (err && err.message) ? err.message : String(err);
+      workoutRoot.innerHTML =
+        "<div class=\"error-card\">" +
+          "<strong>Couldn’t render workout</strong>" +
+          "<div>Something went wrong building this session. Try A · Mon again, or reopen the file in Safari/Chrome.</div>" +
+          "<code>" + esc(msg) + "</code>" +
+        "</div>";
+      try {
+        workoutRoot.scrollIntoView({ behavior: "smooth", block: "start" });
+      } catch (e2) {}
+    }
+  }
+
+  function switchSession(id) {
+    if (id === "C" && !wedOptIn) return;
+    // Always force re-render (even if id === currentSession) so A · Mon never looks blank
+    persist();
+    currentSession = id;
+    localStorage.setItem(LAST_SESSION_KEY, id);
+    log = mergeLog(SESSIONS[currentSession], loadLog(dateKey, currentSession));
+    updatePicker();
+    updateBanner();
+    renderWorkout();
+  }
+
+  document.querySelectorAll("#sessionPicker button").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      switchSession(btn.getAttribute("data-session"));
+    });
+  });
+
+  wedOptInEl.addEventListener("change", function () {
+    wedOptIn = wedOptInEl.checked;
+    localStorage.setItem(PREF_KEY, wedOptIn ? "1" : "0");
+    if (!wedOptIn && currentSession === "C") {
+      // fall back to next suggested non-C
+      const fallback = (weekday === "Friday") ? "B" : "A";
+      switchSession(fallback);
+    } else {
+      updatePicker();
+      updateBanner();
+    }
+  });
+
+  function toNum(v) {
+    if (v == null || String(v).trim() === "") return 0;
+    const n = parseFloat(String(v).trim().replace(/,/g, ""));
+    return Number.isFinite(n) ? n : 0;
+  }
+
+  function exerciseRowName(exerciseName) {
+    return dateKey + " " + currentSession + " · " + exerciseName;
+  }
+
+  /** Notion sync: one object per exercise (+ optional __session_notes__). */
+  function buildExportRows() {
+    const session = SESSIONS[currentSession];
+    const rows = [];
+
+    function pushRow(exerciseName, weight, reps, sets, superset, slot, notes) {
+      rows.push({
+        name: exerciseRowName(exerciseName),
+        date: dateKey,
+        session: currentSession,
+        exercise: exerciseName,
+        weight_lb: toNum(weight),
+        reps: toNum(reps),
+        sets: toNum(sets),
+        superset: String(superset),
+        slot: slot,
+        notes: notes || "",
+        source: "HTML"
+      });
+    }
+
+    if (session.straight) {
+      const d = log.exercises[session.straight.id] || {};
+      pushRow(session.straight.name, d.weight, d.reps, d.sets, "straight", "—", "");
+    }
+
+    session.supersets.forEach(function (ss, idx) {
+      const ssNum = String(ss.id && /^ss\d+$/.test(ss.id) ? ss.id.slice(2) : idx + 1);
+      [ss.a, ss.b].forEach(function (ex) {
+        const d = log.exercises[ex.id] || {};
+        pushRow(ex.name, d.weight, d.reps, d.sets, ssNum, ex.label || "—", "");
+      });
+    });
+
+    const noteParts = [];
+    if (log.finisher) {
+      noteParts.push(
+        "Finisher: " + log.finisher + (log.finisherNotes ? " — " + log.finisherNotes : "")
+      );
+    } else if (log.finisherNotes) {
+      noteParts.push(log.finisherNotes);
+    }
+    if (log.notes && String(log.notes).trim()) {
+      noteParts.push(String(log.notes).trim());
+    }
+    if (noteParts.length) {
+      pushRow("__session_notes__", 0, 0, 0, "straight", "—", noteParts.join("\n"));
+    }
+
+    return rows;
+  }
+
+  function buildExportObject() {
+    return buildExportRows();
+  }
+
+  function buildExportText() {
+    const rows = buildExportRows();
+    const session = SESSIONS[currentSession];
+    const lines = [];
+    lines.push("Workout export (Notion sync schema)");
+    lines.push("date: " + dateKey);
+    lines.push("session: " + currentSession + " (" + session.name + ")");
+    lines.push("weekday: " + weekday + " PT");
+    lines.push("source: HTML");
+    lines.push("rows: " + rows.length);
+    lines.push("");
+    rows.forEach(function (r, i) {
+      lines.push("--- row " + (i + 1) + " ---");
+      lines.push("name: " + r.name);
+      lines.push("date: " + r.date);
+      lines.push("session: " + r.session);
+      lines.push("exercise: " + r.exercise);
+      lines.push("weight_lb: " + r.weight_lb);
+      lines.push("reps: " + r.reps);
+      lines.push("sets: " + r.sets);
+      lines.push("superset: " + r.superset);
+      lines.push("slot: " + r.slot);
+      lines.push("notes: " + (r.notes || ""));
+      lines.push("source: " + r.source);
+      lines.push("");
+    });
+    return lines.join("\n").trim() + "\n";
+  }
+
+    async function copyText(text) {
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.setAttribute("readonly", "");
+        ta.style.position = "fixed";
+        ta.style.left = "-9999px";
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+      }
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  document.getElementById("btnCopyText").addEventListener("click", async function () {
+    const ok = await copyText(buildExportText());
+    showToast(ok ? "Text copied" : "Copy failed — select manually");
+  });
+
+  document.getElementById("btnCopyJson").addEventListener("click", async function () {
+    const ok = await copyText(JSON.stringify(buildExportObject(), null, 2));
+    showToast(ok ? "JSON copied" : "Copy failed — select manually");
+  });
+
+  // Init
+  updateBanner();
+  updatePicker();
+  renderWorkout();
+})();
+</script>
+</body>
+</html>
