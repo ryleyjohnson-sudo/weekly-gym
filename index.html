@@ -1076,6 +1076,53 @@
     return session.name + " — " + day;
   }
 
+
+  function bindWorkoutEvents() {
+    workoutRoot.querySelectorAll("input[data-wu]").forEach(function (el) {
+      el.addEventListener("change", function () {
+        const key = el.getAttribute("data-wu");
+        log.warmups[key] = el.checked;
+        el.closest(".check-row").classList.toggle("done", el.checked);
+        persist();
+      });
+    });
+
+    workoutRoot.querySelectorAll(".exercise").forEach(function (card) {
+      const id = card.getAttribute("data-ex");
+      card.querySelectorAll("input[data-field]").forEach(function (inp) {
+        const save = function () {
+          if (!log.exercises[id]) log.exercises[id] = { weight: "", reps: "", sets: "" };
+          log.exercises[id][inp.getAttribute("data-field")] = inp.value;
+          persist();
+        };
+        inp.addEventListener("input", save);
+        inp.addEventListener("change", save);
+      });
+    });
+
+    const fin = document.getElementById("finisherSelect");
+    if (fin) {
+      fin.addEventListener("change", function () {
+        log.finisher = fin.value;
+        persist();
+      });
+    }
+    const fnNotes = document.getElementById("finisherNotes");
+    if (fnNotes) {
+      fnNotes.addEventListener("input", function () {
+        log.finisherNotes = fnNotes.value;
+        persist();
+      });
+    }
+    const sn = document.getElementById("sessionNotes");
+    if (sn) {
+      sn.addEventListener("input", function () {
+        log.notes = sn.value;
+        persist();
+      });
+    }
+  }
+
   function renderWorkout() {
     try {
       const session = SESSIONS[currentSession];
