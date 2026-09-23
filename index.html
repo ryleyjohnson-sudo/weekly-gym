@@ -569,7 +569,7 @@
     <div class="toggle-row">
       <div>
         <strong>Opt in Wednesday</strong>
-        <div style="color:var(--muted);font-size:0.85rem;margin-top:2px">Show full-body Session C (Wed)</div>
+        <div style="color:var(--muted);font-size:0.85rem;margin-top:2px">Show upper-focused Session C (Wed) — full effort, light lower touch</div>
       </div>
       <label class="toggle" aria-label="Opt in Wednesday">
         <input type="checkbox" id="wedOptIn">
@@ -909,6 +909,7 @@
       id: "A",
       name: "Session A",
       dayHint: "Monday",
+      subtitle: "Full-body · squat focus · 45–50 min",
       warmups: [
         "Calf + hamstring mobility",
         "Easy rower / assault 2–3 min",
@@ -949,6 +950,7 @@
       id: "B",
       name: "Session B",
       dayHint: "Friday",
+      subtitle: "Full-body · trap-bar focus · 45–50 min",
       warmups: [
         "Calf + hamstring mobility",
         "Easy rower / assault 2–3 min",
@@ -989,18 +991,21 @@
       id: "C",
       name: "Session C",
       dayHint: "Wednesday (opt-in)",
+      subtitle: "Upper-focused · full effort · light lower touch · 45–50 min",
+      straightTitle: "Light lower",
+      straightBadge: "Moderate · not a heavy main",
       warmups: [
-        "Calf + hamstring mobility",
+        "Upper mobility (shoulders / T-spine / wrists)",
         "Easy rower / assault 2–3 min",
-        "1–2 light RDL warm-up sets"
+        "1–2 light goblet squat warm-up sets"
       ],
       straight: {
-        id: "rdl",
-        name: "Romanian DL",
-        prescribed: "135 × 8 × 3",
-        rest: "Rest 90–120s between sets",
-        defaultWeight: "135",
-        defaultReps: "8",
+        id: "goblet",
+        name: "Goblet squat",
+        prescribed: "45 × 8–10 × 3",
+        rest: "Moderate load · rest ~60–90s (not a heavy main)",
+        defaultWeight: "45",
+        defaultReps: "8-10",
         defaultSets: "3"
       },
       supersets: [
@@ -1251,7 +1256,7 @@
       html = "<strong>Today → Session B</strong><div class=\"sub\">Auto-selected for Friday (PT). Swap anytime.</div>";
     } else if (weekday === "Wednesday") {
       if (wedOptIn) {
-        html = "<strong>Today → Session C (opted in)</strong><div class=\"sub\">Full-body Wednesday session (~45–50 min). Toggle off to hide C.</div>";
+        html = "<strong>Today → Session C (opted in)</strong><div class=\"sub\">Upper-focused full session (~45–50 min) — full effort, light lower touch. Not a recovery day. Toggle off to hide C.</div>";
       } else {
         html = "<strong>Next up: " + (info.session === "C" ? "Session A (Monday)" : ("Session " + info.session)) + "</strong><div class=\"sub\">Wednesday C is off. Opt in below, or pick A/B.</div>";
       }
@@ -1473,7 +1478,7 @@
       let html = "";
       html += "<div class=\"session-heading\" id=\"sessionHeading\">";
       html += "<div class=\"sh-title\">" + esc(sessionHeadingLabel(session)) + "</div>";
-      html += "<div class=\"sh-sub\">Full-body · 45–50 min</div>";
+      html += "<div class=\"sh-sub\">" + esc(session.subtitle || "Full-body · 45–50 min") + "</div>";
       html += "</div>";
 
       // Warm-up
@@ -1492,8 +1497,8 @@
       // Straight lift
       if (session.straight) {
         html += "<div class=\"card\">";
-        html += "<h2>Main lift</h2>";
-        html += "<div class=\"straight-badge\">Straight sets</div>";
+        html += "<h2>" + esc(session.straightTitle || "Main lift") + "</h2>";
+        html += "<div class=\"straight-badge\">" + esc(session.straightBadge || "Straight sets") + "</div>";
         html += exerciseCard(session.straight, false);
         html += "</div>";
       }
