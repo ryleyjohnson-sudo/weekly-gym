@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#0b0d10">
-<title>Weekly Gym — Sessions A/B/C</title>
+<title>Weekly Gym — Week 2 (Oct 12–16)</title>
 <style>
   :root {
     --bg: #0b0d10;
@@ -552,7 +552,7 @@
 <body>
 <div class="wrap">
   <header class="app-head">
-    <div class="eyebrow">Full-body · 45–50 min</div>
+    <div class="eyebrow" id="weekLabel">Week 2 · Oct 12–16, 2026 · 45–50 min</div>
     <h1>Weekly Gym</h1>
     <div class="date-line" id="dateLine"></div>
   </header>
@@ -626,46 +626,44 @@
         </div>
         <div class="check-row">
           <input type="checkbox" id="static-wu-2" disabled>
-          <label for="static-wu-2">1–2 light squat warm-up sets</label>
+          <label for="static-wu-2">Squat ramp: bar × 8, 95 × 5</label>
         </div>
       </div>
 
       <div class="card">
         <h2>Main lift</h2>
         <div class="straight-badge">Straight sets</div>
-        <div class="exercise">
-          <div class="ex-top">
-            <div>
+          <div class="exercise">
+            <div class="ex-top"><div>
               <div class="ex-name">Back squat</div>
-              <div class="ex-prescribed">135 × 8 × 3</div>
-              <div class="ex-rest">Rest 90–120s between sets</div>
-            </div>
-          </div>
-          <div class="set-rows">
+              <div class="ex-prescribed">140 × 8 × 3</div>
+              <div class="ex-rest">+5 lb from wk 1 · rest 90–120s</div>
+            </div></div>
+            <div class="set-rows">
             <div class="set-row">
               <div class="set-label">Set 1</div>
               <div class="log-grid">
-                <div class="field"><label>Weight</label><input value="135" readonly></div>
+                <div class="field"><label>Weight</label><input value="140" readonly></div>
                 <div class="field"><label>Reps</label><input value="8" readonly></div>
               </div>
             </div>
             <div class="set-row">
               <div class="set-label">Set 2</div>
               <div class="log-grid">
-                <div class="field"><label>Weight</label><input value="135" readonly></div>
+                <div class="field"><label>Weight</label><input value="140" readonly></div>
                 <div class="field"><label>Reps</label><input value="8" readonly></div>
               </div>
             </div>
             <div class="set-row">
               <div class="set-label">Set 3</div>
               <div class="log-grid">
-                <div class="field"><label>Weight</label><input value="135" readonly></div>
+                <div class="field"><label>Weight</label><input value="140" readonly></div>
                 <div class="field"><label>Reps</label><input value="8" readonly></div>
               </div>
             </div>
             <button type="button" class="btn-add-set" disabled>+ set</button>
           </div>
-        </div>
+          </div>
       </div>
 
       <div class="superset">
@@ -677,28 +675,29 @@
           <div class="exercise">
             <div class="ex-top"><div>
               <div class="ex-name"><span class="ex-label">A1</span>DB bench</div>
-              <div class="ex-prescribed">45s × 10 × 3</div>
+              <div class="ex-prescribed">45s × 11 × 3</div>
+              <div class="ex-rest">+1 rep · all 12s clean → 50s next</div>
             </div></div>
             <div class="set-rows">
             <div class="set-row">
               <div class="set-label">Set 1</div>
               <div class="log-grid">
                 <div class="field"><label>Weight</label><input value="45" readonly></div>
-                <div class="field"><label>Reps</label><input value="10" readonly></div>
+                <div class="field"><label>Reps</label><input value="11" readonly></div>
               </div>
             </div>
             <div class="set-row">
               <div class="set-label">Set 2</div>
               <div class="log-grid">
                 <div class="field"><label>Weight</label><input value="45" readonly></div>
-                <div class="field"><label>Reps</label><input value="10" readonly></div>
+                <div class="field"><label>Reps</label><input value="11" readonly></div>
               </div>
             </div>
             <div class="set-row">
               <div class="set-label">Set 3</div>
               <div class="log-grid">
                 <div class="field"><label>Weight</label><input value="45" readonly></div>
-                <div class="field"><label>Reps</label><input value="10" readonly></div>
+                <div class="field"><label>Reps</label><input value="11" readonly></div>
               </div>
             </div>
             <button type="button" class="btn-add-set" disabled>+ set</button>
@@ -708,28 +707,29 @@
           <div class="exercise">
             <div class="ex-top"><div>
               <div class="ex-name"><span class="ex-label">A2</span>Banded pull-ups</div>
-              <div class="ex-prescribed">5–8 × 3</div>
+              <div class="ex-prescribed">BW × 6 × 3</div>
+              <div class="ex-rest">Lighter band when 8 is easy</div>
             </div></div>
             <div class="set-rows">
             <div class="set-row">
               <div class="set-label">Set 1</div>
               <div class="log-grid">
-                <div class="field"><label>Weight</label><input value="" readonly placeholder="lb"></div>
-                <div class="field"><label>Reps</label><input value="5-8" readonly></div>
+                <div class="field"><label>Weight</label><input value="BW" readonly></div>
+                <div class="field"><label>Reps</label><input value="6" readonly></div>
               </div>
             </div>
             <div class="set-row">
               <div class="set-label">Set 2</div>
               <div class="log-grid">
-                <div class="field"><label>Weight</label><input value="" readonly placeholder="lb"></div>
-                <div class="field"><label>Reps</label><input value="5-8" readonly></div>
+                <div class="field"><label>Weight</label><input value="BW" readonly></div>
+                <div class="field"><label>Reps</label><input value="6" readonly></div>
               </div>
             </div>
             <div class="set-row">
               <div class="set-label">Set 3</div>
               <div class="log-grid">
-                <div class="field"><label>Weight</label><input value="" readonly placeholder="lb"></div>
-                <div class="field"><label>Reps</label><input value="5-8" readonly></div>
+                <div class="field"><label>Weight</label><input value="BW" readonly></div>
+                <div class="field"><label>Reps</label><input value="6" readonly></div>
               </div>
             </div>
             <button type="button" class="btn-add-set" disabled>+ set</button>
@@ -747,28 +747,29 @@
           <div class="exercise">
             <div class="ex-top"><div>
               <div class="ex-name"><span class="ex-label">B1</span>Seated DB press</div>
-              <div class="ex-prescribed">35s × 10 × 3</div>
+              <div class="ex-prescribed">35s × 11 × 3</div>
+              <div class="ex-rest">+1 rep</div>
             </div></div>
             <div class="set-rows">
             <div class="set-row">
               <div class="set-label">Set 1</div>
               <div class="log-grid">
                 <div class="field"><label>Weight</label><input value="35" readonly></div>
-                <div class="field"><label>Reps</label><input value="10" readonly></div>
+                <div class="field"><label>Reps</label><input value="11" readonly></div>
               </div>
             </div>
             <div class="set-row">
               <div class="set-label">Set 2</div>
               <div class="log-grid">
                 <div class="field"><label>Weight</label><input value="35" readonly></div>
-                <div class="field"><label>Reps</label><input value="10" readonly></div>
+                <div class="field"><label>Reps</label><input value="11" readonly></div>
               </div>
             </div>
             <div class="set-row">
               <div class="set-label">Set 3</div>
               <div class="log-grid">
                 <div class="field"><label>Weight</label><input value="35" readonly></div>
-                <div class="field"><label>Reps</label><input value="10" readonly></div>
+                <div class="field"><label>Reps</label><input value="11" readonly></div>
               </div>
             </div>
             <button type="button" class="btn-add-set" disabled>+ set</button>
@@ -778,28 +779,29 @@
           <div class="exercise">
             <div class="ex-top"><div>
               <div class="ex-name"><span class="ex-label">B2</span>DB curls</div>
-              <div class="ex-prescribed">25s × 10–12 × 3</div>
+              <div class="ex-prescribed">25s × 12 × 3</div>
+              <div class="ex-rest">Slow 3s lower</div>
             </div></div>
             <div class="set-rows">
             <div class="set-row">
               <div class="set-label">Set 1</div>
               <div class="log-grid">
                 <div class="field"><label>Weight</label><input value="25" readonly></div>
-                <div class="field"><label>Reps</label><input value="10-12" readonly></div>
+                <div class="field"><label>Reps</label><input value="12" readonly></div>
               </div>
             </div>
             <div class="set-row">
               <div class="set-label">Set 2</div>
               <div class="log-grid">
                 <div class="field"><label>Weight</label><input value="25" readonly></div>
-                <div class="field"><label>Reps</label><input value="10-12" readonly></div>
+                <div class="field"><label>Reps</label><input value="12" readonly></div>
               </div>
             </div>
             <div class="set-row">
               <div class="set-label">Set 3</div>
               <div class="log-grid">
                 <div class="field"><label>Weight</label><input value="25" readonly></div>
-                <div class="field"><label>Reps</label><input value="10-12" readonly></div>
+                <div class="field"><label>Reps</label><input value="12" readonly></div>
               </div>
             </div>
             <button type="button" class="btn-add-set" disabled>+ set</button>
@@ -810,28 +812,29 @@
 
       <div class="superset">
         <div class="superset-head">
-          <div class="title">Superset 3 · 2–3 rounds</div>
+          <div class="title">Superset 3 · 3 rounds (RDL 2, abs 3)</div>
           <div class="hint">Little rest between pair · ~60–90s after</div>
         </div>
         <div class="superset-body">
           <div class="exercise">
             <div class="ex-top"><div>
-              <div class="ex-name"><span class="ex-label">C1</span>RDL / good morning</div>
-              <div class="ex-prescribed">95 × 8–10 × 2</div>
+              <div class="ex-name"><span class="ex-label">C1</span>RDL (light)</div>
+              <div class="ex-prescribed">95 × 10 × 2</div>
+              <div class="ex-rest">Hamstring stretch, not a grind</div>
             </div></div>
             <div class="set-rows">
             <div class="set-row">
               <div class="set-label">Set 1</div>
               <div class="log-grid">
                 <div class="field"><label>Weight</label><input value="95" readonly></div>
-                <div class="field"><label>Reps</label><input value="8-10" readonly></div>
+                <div class="field"><label>Reps</label><input value="10" readonly></div>
               </div>
             </div>
             <div class="set-row">
               <div class="set-label">Set 2</div>
               <div class="log-grid">
                 <div class="field"><label>Weight</label><input value="95" readonly></div>
-                <div class="field"><label>Reps</label><input value="8-10" readonly></div>
+                <div class="field"><label>Reps</label><input value="10" readonly></div>
               </div>
             </div>
             <button type="button" class="btn-add-set" disabled>+ set</button>
@@ -840,22 +843,30 @@
           <div class="pair-arrow">↓ then immediately ↓</div>
           <div class="exercise">
             <div class="ex-top"><div>
-              <div class="ex-name"><span class="ex-label">C2</span>Abs</div>
-              <div class="ex-prescribed">12–15 × 2</div>
+              <div class="ex-name"><span class="ex-label">C2</span>Cable crunch</div>
+              <div class="ex-prescribed">50 × 15 × 3</div>
+              <div class="ex-rest">Pulley rope · round 3 solo</div>
             </div></div>
             <div class="set-rows">
             <div class="set-row">
               <div class="set-label">Set 1</div>
               <div class="log-grid">
-                <div class="field"><label>Weight</label><input value="" readonly placeholder="lb"></div>
-                <div class="field"><label>Reps</label><input value="12-15" readonly></div>
+                <div class="field"><label>Weight</label><input value="50" readonly></div>
+                <div class="field"><label>Reps</label><input value="15" readonly></div>
               </div>
             </div>
             <div class="set-row">
               <div class="set-label">Set 2</div>
               <div class="log-grid">
-                <div class="field"><label>Weight</label><input value="" readonly placeholder="lb"></div>
-                <div class="field"><label>Reps</label><input value="12-15" readonly></div>
+                <div class="field"><label>Weight</label><input value="50" readonly></div>
+                <div class="field"><label>Reps</label><input value="15" readonly></div>
+              </div>
+            </div>
+            <div class="set-row">
+              <div class="set-label">Set 3</div>
+              <div class="log-grid">
+                <div class="field"><label>Weight</label><input value="50" readonly></div>
+                <div class="field"><label>Reps</label><input value="15" readonly></div>
               </div>
             </div>
             <button type="button" class="btn-add-set" disabled>+ set</button>
@@ -874,6 +885,7 @@
         <div class="meta-pills">
           <span class="pill">Session A</span>
           <span class="pill">Monday</span>
+          <span class="pill">Week 2</span>
           <span class="pill">Steps 8k / 9k</span>
         </div>
       </div>
@@ -904,131 +916,305 @@
     "Skip / none"
   ];
 
+  const WEEK = {"label": "Week 2", "range": "Oct 12–16, 2026", "start": "2026-10-12"};
+
   const SESSIONS = {
-    A: {
-      id: "A",
-      name: "Session A",
-      dayHint: "Monday",
-      subtitle: "Full-body · squat focus · 45–50 min",
-      warmups: [
+    "A": {
+      "id": "A",
+      "name": "Session A",
+      "dayHint": "Monday",
+      "subtitle": "Week 2 · Full-body · squat focus · 45–50 min",
+      "warmups": [
         "Calf + hamstring mobility",
         "Easy rower / assault 2–3 min",
-        "1–2 light squat warm-up sets"
+        "Squat ramp: bar × 8, 95 × 5"
       ],
-      straight: {
-        id: "sq",
-        name: "Back squat",
-        prescribed: "135 × 8 × 3",
-        rest: "Rest 90–120s between sets",
-        defaultWeight: "135",
-        defaultReps: "8",
-        defaultSets: "3"
+      "straight": {
+        "id": "sq",
+        "name": "Back squat",
+        "prescribed": "140 × 8 × 3",
+        "defaultWeight": "140",
+        "defaultReps": "8",
+        "defaultSets": "3",
+        "rest": "+5 lb from wk 1 · rest 90–120s"
       },
-      supersets: [
+      "supersets": [
         {
-          id: "ss1",
-          title: "Superset 1 · 3 rounds",
-          a: { id: "a1", label: "A1", name: "DB bench", prescribed: "45s × 10 × 3", defaultWeight: "45", defaultReps: "10", defaultSets: "3" },
-          b: { id: "a2", label: "A2", name: "Banded pull-ups", prescribed: "5–8 × 3", defaultWeight: "", defaultReps: "5-8", defaultSets: "3" }
+          "id": "ss1",
+          "title": "Superset 1 · 3 rounds",
+          "a": {
+            "id": "a1",
+            "label": "A1",
+            "name": "DB bench",
+            "prescribed": "45s × 11 × 3",
+            "defaultWeight": "45",
+            "defaultReps": "11",
+            "defaultSets": "3",
+            "rest": "+1 rep · all 12s clean → 50s next"
+          },
+          "b": {
+            "id": "a2",
+            "label": "A2",
+            "name": "Banded pull-ups",
+            "prescribed": "BW × 6 × 3",
+            "defaultWeight": "BW",
+            "defaultReps": "6",
+            "defaultSets": "3",
+            "rest": "Lighter band when 8 is easy"
+          }
         },
         {
-          id: "ss2",
-          title: "Superset 2 · 3 rounds",
-          a: { id: "b1", label: "B1", name: "Seated DB press", prescribed: "35s × 10 × 3", defaultWeight: "35", defaultReps: "10", defaultSets: "3" },
-          b: { id: "b2", label: "B2", name: "DB curls", prescribed: "25s × 10–12 × 3", defaultWeight: "25", defaultReps: "10-12", defaultSets: "3" }
+          "id": "ss2",
+          "title": "Superset 2 · 3 rounds",
+          "a": {
+            "id": "b1",
+            "label": "B1",
+            "name": "Seated DB press",
+            "prescribed": "35s × 11 × 3",
+            "defaultWeight": "35",
+            "defaultReps": "11",
+            "defaultSets": "3",
+            "rest": "+1 rep"
+          },
+          "b": {
+            "id": "b2",
+            "label": "B2",
+            "name": "DB curls",
+            "prescribed": "25s × 12 × 3",
+            "defaultWeight": "25",
+            "defaultReps": "12",
+            "defaultSets": "3",
+            "rest": "Slow 3s lower"
+          }
         },
         {
-          id: "ss3",
-          title: "Superset 3 · 2–3 rounds",
-          a: { id: "c1", label: "C1", name: "RDL / good morning", prescribed: "95 × 8–10 × 2", defaultWeight: "95", defaultReps: "8-10", defaultSets: "2" },
-          b: { id: "c2", label: "C2", name: "Abs", prescribed: "12–15 × 2", defaultWeight: "", defaultReps: "12-15", defaultSets: "2" }
+          "id": "ss3",
+          "title": "Superset 3 · 3 rounds (RDL 2, abs 3)",
+          "a": {
+            "id": "c1",
+            "label": "C1",
+            "name": "RDL (light)",
+            "prescribed": "95 × 10 × 2",
+            "defaultWeight": "95",
+            "defaultReps": "10",
+            "defaultSets": "2",
+            "rest": "Hamstring stretch, not a grind"
+          },
+          "b": {
+            "id": "c2",
+            "label": "C2",
+            "name": "Cable crunch",
+            "prescribed": "50 × 15 × 3",
+            "defaultWeight": "50",
+            "defaultReps": "15",
+            "defaultSets": "3",
+            "rest": "Pulley rope · round 3 solo"
+          }
         }
       ],
-      finishers: ["Rower", "Assault bike", "Incline treadmill"]
+      "finishers": [
+        "Rower",
+        "Assault bike",
+        "Incline treadmill"
+      ]
     },
-    B: {
-      id: "B",
-      name: "Session B",
-      dayHint: "Friday",
-      subtitle: "Full-body · trap-bar focus · 45–50 min",
-      warmups: [
+    "B": {
+      "id": "B",
+      "name": "Session B",
+      "dayHint": "Friday",
+      "subtitle": "Week 2 · Full-body · trap-bar focus · 45–50 min",
+      "warmups": [
         "Calf + hamstring mobility",
         "Easy rower / assault 2–3 min",
-        "1–2 light trap-bar / RDL warm-up sets"
+        "Trap-bar ramp: 95 × 8, 135 × 5"
       ],
-      straight: {
-        id: "tbdl",
-        name: "Trap bar DL (or RDL)",
-        prescribed: "155 × 6–8 × 3 · leave 2 in tank",
-        rest: "Rest 90–120s between sets",
-        defaultWeight: "155",
-        defaultReps: "6-8",
-        defaultSets: "3"
+      "straight": {
+        "id": "tbdl",
+        "name": "Trap bar DL",
+        "prescribed": "160 × 6 × 3 · leave 2 in tank",
+        "defaultWeight": "160",
+        "defaultReps": "6",
+        "defaultSets": "3",
+        "rest": "+5 lb from wk 1 · build to 8 before next bump · rest 90–120s"
       },
-      supersets: [
+      "supersets": [
         {
-          id: "ss1",
-          title: "Superset 1 · 3 rounds",
-          a: { id: "a1", label: "A1", name: "Incline DB press", prescribed: "40s × 10 × 3", defaultWeight: "40", defaultReps: "10", defaultSets: "3" },
-          b: { id: "a2", label: "A2", name: "Pulley / chest-supported row", prescribed: "50 × 10–12 × 3", defaultWeight: "50", defaultReps: "10-12", defaultSets: "3" }
+          "id": "ss1",
+          "title": "Superset 1 · 3 rounds",
+          "a": {
+            "id": "a1",
+            "label": "A1",
+            "name": "Incline DB press",
+            "prescribed": "40s × 11 × 3",
+            "defaultWeight": "40",
+            "defaultReps": "11",
+            "defaultSets": "3",
+            "rest": "+1 rep · all 12s clean → 45s next"
+          },
+          "b": {
+            "id": "a2",
+            "label": "A2",
+            "name": "Seated pulley row",
+            "prescribed": "55 × 12 × 3",
+            "defaultWeight": "55",
+            "defaultReps": "12",
+            "defaultSets": "3",
+            "rest": "+5 lb"
+          }
         },
         {
-          id: "ss2",
-          title: "Superset 2 · 3 rounds",
-          a: { id: "b1", label: "B1", name: "Standing DB OHP", prescribed: "35s × 8–10 × 3", defaultWeight: "35", defaultReps: "8-10", defaultSets: "3" },
-          b: { id: "b2", label: "B2", name: "Hammer / incline curls", prescribed: "25s × 10–12 × 3", defaultWeight: "25", defaultReps: "10-12", defaultSets: "3" }
+          "id": "ss2",
+          "title": "Superset 2 · 3 rounds",
+          "a": {
+            "id": "b1",
+            "label": "B1",
+            "name": "Standing DB OHP",
+            "prescribed": "35s × 10 × 3",
+            "defaultWeight": "35",
+            "defaultReps": "10",
+            "defaultSets": "3",
+            "rest": "Top of wk 1 range"
+          },
+          "b": {
+            "id": "b2",
+            "label": "B2",
+            "name": "Hammer curls",
+            "prescribed": "25s × 12 × 3",
+            "defaultWeight": "25",
+            "defaultReps": "12",
+            "defaultSets": "3"
+          }
         },
         {
-          id: "ss3",
-          title: "Superset 3 · 2–3 rounds",
-          a: { id: "c1", label: "C1", name: "Lat pulldown / assisted pull-up (or dips 6–10)", prescribed: "70 × 8–12 × 3", defaultWeight: "70", defaultReps: "8-12", defaultSets: "3" },
-          b: { id: "c2", label: "C2", name: "Abs", prescribed: "12–15 × 3", defaultWeight: "", defaultReps: "12-15", defaultSets: "3" }
+          "id": "ss3",
+          "title": "Superset 3 · 3 rounds",
+          "a": {
+            "id": "c1",
+            "label": "C1",
+            "name": "Lat pulldown",
+            "prescribed": "75 × 10 × 3",
+            "defaultWeight": "75",
+            "defaultReps": "10",
+            "defaultSets": "3",
+            "rest": "+5 lb · swap: dips BW × 8"
+          },
+          "b": {
+            "id": "c2",
+            "label": "C2",
+            "name": "Hanging knee raises",
+            "prescribed": "BW × 12 × 3",
+            "defaultWeight": "BW",
+            "defaultReps": "12",
+            "defaultSets": "3",
+            "rest": "Ab station / pull-up bar · no swing"
+          }
         }
       ],
-      finishers: ["Rower", "Assault bike", "Incline treadmill"]
+      "finishers": [
+        "Rower",
+        "Assault bike",
+        "Incline treadmill"
+      ]
     },
-    C: {
-      id: "C",
-      name: "Session C",
-      dayHint: "Wednesday (opt-in)",
-      subtitle: "Upper-focused · full effort · light lower touch · 45–50 min",
-      straightTitle: "Light lower",
-      straightBadge: "Moderate · not a heavy main",
-      warmups: [
+    "C": {
+      "id": "C",
+      "name": "Session C",
+      "dayHint": "Wednesday (opt-in)",
+      "subtitle": "Week 2 · Upper-focused · full effort · light lower touch · 45–50 min",
+      "straightTitle": "Light lower",
+      "straightBadge": "Moderate · not a heavy main",
+      "warmups": [
         "Upper mobility (shoulders / T-spine / wrists)",
         "Easy rower / assault 2–3 min",
         "1–2 light goblet squat warm-up sets"
       ],
-      straight: {
-        id: "goblet",
-        name: "Goblet squat",
-        prescribed: "45 × 8–10 × 3",
-        rest: "Moderate load · rest ~60–90s (not a heavy main)",
-        defaultWeight: "45",
-        defaultReps: "8-10",
-        defaultSets: "3"
+      "straight": {
+        "id": "goblet",
+        "name": "Goblet squat",
+        "prescribed": "45 × 10 × 3",
+        "defaultWeight": "45",
+        "defaultReps": "10",
+        "defaultSets": "3",
+        "rest": "Moderate load · rest ~60–90s (not a heavy main)"
       },
-      supersets: [
+      "supersets": [
         {
-          id: "ss1",
-          title: "Superset 1 · 3 rounds",
-          a: { id: "a1", label: "A1", name: "Flat DB press", prescribed: "45s × 10 × 3", defaultWeight: "45", defaultReps: "10", defaultSets: "3" },
-          b: { id: "a2", label: "A2", name: "One-arm DB row", prescribed: "50 × 10 × 3", defaultWeight: "50", defaultReps: "10", defaultSets: "3" }
+          "id": "ss1",
+          "title": "Superset 1 · 3 rounds",
+          "a": {
+            "id": "a1",
+            "label": "A1",
+            "name": "Flat DB press",
+            "prescribed": "45s × 11 × 3",
+            "defaultWeight": "45",
+            "defaultReps": "11",
+            "defaultSets": "3",
+            "rest": "+1 rep"
+          },
+          "b": {
+            "id": "a2",
+            "label": "A2",
+            "name": "One-arm DB row",
+            "prescribed": "55 × 10 × 3",
+            "defaultWeight": "55",
+            "defaultReps": "10",
+            "defaultSets": "3",
+            "rest": "+5 lb · each arm"
+          }
         },
         {
-          id: "ss2",
-          title: "Superset 2 · 3 rounds",
-          a: { id: "b1", label: "B1", name: "Seated DB OHP", prescribed: "35s × 8–10 × 3", defaultWeight: "35", defaultReps: "8-10", defaultSets: "3" },
-          b: { id: "b2", label: "B2", name: "DB curls", prescribed: "25s × 10–12 × 3", defaultWeight: "25", defaultReps: "10-12", defaultSets: "3" }
+          "id": "ss2",
+          "title": "Superset 2 · 3 rounds",
+          "a": {
+            "id": "b1",
+            "label": "B1",
+            "name": "Seated DB OHP",
+            "prescribed": "35s × 10 × 3",
+            "defaultWeight": "35",
+            "defaultReps": "10",
+            "defaultSets": "3"
+          },
+          "b": {
+            "id": "b2",
+            "label": "B2",
+            "name": "Cable curls",
+            "prescribed": "40 × 12 × 3",
+            "defaultWeight": "40",
+            "defaultReps": "12",
+            "defaultSets": "3",
+            "rest": "Pulley · new for wk 2"
+          }
         },
         {
-          id: "ss3",
-          title: "Superset 3 · 3 rounds",
-          a: { id: "c1", label: "C1", name: "Banded pull-ups / lat pulldown", prescribed: "5–8 × 3", defaultWeight: "", defaultReps: "5-8", defaultSets: "3" },
-          b: { id: "c2", label: "C2", name: "Abs", prescribed: "12–15 × 3", defaultWeight: "", defaultReps: "12-15", defaultSets: "3" }
+          "id": "ss3",
+          "title": "Superset 3 · 3 rounds",
+          "a": {
+            "id": "c1",
+            "label": "C1",
+            "name": "Banded pull-ups / lat pulldown",
+            "prescribed": "BW × 6 × 3",
+            "defaultWeight": "BW",
+            "defaultReps": "6",
+            "defaultSets": "3",
+            "rest": "Pulldown option: 75 × 10"
+          },
+          "b": {
+            "id": "c2",
+            "label": "C2",
+            "name": "Med-ball Russian twists",
+            "prescribed": "15 × 12/side × 3",
+            "defaultWeight": "15",
+            "defaultReps": "12",
+            "defaultSets": "3",
+            "rest": "12 each side"
+          }
         }
       ],
-      finishers: ["Rower", "Assault bike", "Incline treadmill"]
+      "finishers": [
+        "Rower",
+        "Assault bike",
+        "Incline treadmill"
+      ]
     }
   };
 
@@ -1540,6 +1726,7 @@
       html += "<div class=\"meta-pills\">";
       html += "<span class=\"pill\">" + esc(session.name) + "</span>";
       html += "<span class=\"pill\">" + esc(dateKey) + " PT</span>";
+      html += "<span class=\"pill\">" + esc(WEEK.label) + "</span>";
       html += "<span class=\"pill\">Steps 8k / 9k</span>";
       html += "</div></div>";
 
@@ -1698,6 +1885,7 @@
     lines.push("date: " + dateKey);
     lines.push("session: " + currentSession + " (" + session.name + ")");
     lines.push("weekday: " + weekday + " PT");
+    lines.push("plan: " + WEEK.label + " (" + WEEK.range + ")");
     lines.push("source: HTML");
     lines.push("rows: " + rows.length);
     lines.push("");
